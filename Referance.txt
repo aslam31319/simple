@@ -1,0 +1,1 @@
+this projuct includes small hardcoded rest api with spring and hibernate 
