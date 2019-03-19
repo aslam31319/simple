@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns="http://www.springframework.org/schema/beans">
+
+
+
+	<context:component-scan
+		base-package="org.jspiders.mvc.login" />
+
+	<bean id="sf"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+
+		<property value="classpath:config/hibernate.cfg.xml"
+			name="configLocation" />
+
+	</bean>
+<!-- 	<bean id="contentNegotiationManager"
+  class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+    <property name="favorPathExtension" value="false" />
+    <property name="favorParameter" value="true"/>
+    <property name="parameterName" value="mediaType"/>
+    <property name="ignoreAcceptHeader" value="true" />
+    <property name="defaultContentType" value="application/json" />
+    <property name="useJaf" value="false" />
+ 
+    <property name="mediaTypes">
+        <map>
+            <entry key="json" value="application/json" />
+            <entry key="xml" value="application/xml" />
+        </map>
+    </property>
+</bean> -->
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+
+		<property value="/WEB-INF/views/" name="prefix" />
+
+		<property value=".jsp" name="suffix" />
+
+	</bean>
+
+	<mvc:resources location="/resources/"
+		mapping="/resources/**" />
+
+	<mvc:annotation-driven />
+
+</beans>
