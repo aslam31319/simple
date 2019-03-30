@@ -4,11 +4,16 @@ $(document).ready(
 			$( function() {
 			    $( "#DOB" ).datepicker({
 			      showOn: "button",
+			      changeMonth: true,
+			      changeYear: true,
 			      buttonImage: "https://img.icons8.com/ios/50/000000/planner.png",
 			      buttonImageHeight:"10px",
 			      buttonImageOnly: true,
+			      dateFormat: 'dd-mm-yy',
 			      buttonText: "Select date",
-			      maxDate: "-18Y"
+			      maxDate: "-18Y",
+			      minDate:"-80Y",
+			      yearRange: "1900:2010" 
 			    });
 			    
 			  } );
@@ -241,6 +246,38 @@ $(document).ready(
 
 							});
 
+			
+			
+			$("#emailforg").keyup(function() {
+				var email = $(this).val();
+				if (isEmail($.trim(email))) {
+					$(this).css({
+						"border-color" : "black",
+						"box-shadow" : "1px",
+						"-webkit-box-shadow" : "none"
+					});
+					emailok = true;
+					if (emailok) {
+						$("#forgotsubmit").removeAttr("disabled");
+						$("#forgotsubmit").css({
+							"background-color" : "#007bff"
+						});
+					} else {
+						$("#forgotsubmit").attr("disabled", "disabled");
+					}
+				} else {
+					$(this).css({
+						"border-color" : "red",
+						"box-shadow" : "1px",
+						"-webkit-box-shadow" : "none"
+					})
+					emailok = false;
+					$("#forgotsubmit").attr("disabled", "disabled");
+				}
+
+			});
+			
+			
 			$("#email").keyup(function() {
 				var email = $(this).val();
 				if (isEmail($.trim(email))) {
@@ -328,10 +365,12 @@ $(document).ready(
 									text : 'Choose your state'
 								}));
 								$("#state").removeAttr("disabled");
+								
 								$('#city').empty().append($('<option>', {
 									value : 'Nil',
 									text : 'Choose your city'
 								}));
+								$("#city").attr("disabled", "disabled");
 								var ur = "rest/" + $("#country").val();
 								$.ajax({
 									url : ur,
@@ -415,14 +454,25 @@ $(document).ready(
 							});
 
 			$("#login").click(function() {
-				$("#rew1").show();
+				
 				$("#raw1").hide();
+				$("#forgotPass").hide();
+				$("#rew1").show();
 				$("#lognavli").addClass("active");
 				$("#regnavli").removeClass("active");
 			});
 			$("#register").click(function() {
-				$("#raw1").show();
+				
 				$("#rew1").hide();
+				$("#forgotPass").hide();
+				$("#raw1").show();
+				$("#regnavli").addClass("active");
+				$("#lognavli").removeClass("active");
+			});
+			$("#forgot").click(function() {
+				$("#raw1").hide();
+				$("#rew1").hide();
+				$("#forgotPass").show();
 				$("#regnavli").addClass("active");
 				$("#lognavli").removeClass("active");
 			});

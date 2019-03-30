@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="mysql5-169c7b823cc-7e637b12c8046cec" provider="mysql" driver="mysql5" name="MySQL - localhost" save-password="true" read-only="false">
+		<connection host="localhost" port="3306" server="" database="" url="jdbc:mysql://localhost:3306/" user="root" password="EgALKU8jpQ==" type="dev">
+			<property name="connectTimeout" value="20000"/>
+		</connection>
+	</data-source>
+	<filters/>
+</data-sources>

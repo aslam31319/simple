@@ -1,6 +1,5 @@
 package org.jspiders.mvc.login.repository.impl;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -8,9 +7,11 @@ import org.jspiders.mvc.login.model.UserDTO;
 import org.jspiders.mvc.login.repository.inf.LoginDaoInf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository("hql")
+@Transactional
 public class LoginDaoHqlImpl implements LoginDaoInf {
 
 	@Autowired
@@ -25,19 +26,9 @@ public class LoginDaoHqlImpl implements LoginDaoInf {
 		qry.setParameter("email", email);
 		qry.setParameter("password", password);
 		
-		try {
 			UserDTO dto=qry.uniqueResult();
-			if(dto==null) {
-				return new UserDTO();
-			}
 			return dto;
 
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			return new UserDTO();
-		} finally {
-			se.close();
-		}
 	}
 
 }

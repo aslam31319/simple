@@ -26,6 +26,7 @@ public class PlaceService {
 	}
 
 	public List<PlaceDTO> getState(String country) {
+		System.err.println("inside getstate of service");
 		return placeDao.getState(country);
 	}
 	public List<PlaceDTO> getCity(String country,String state) {

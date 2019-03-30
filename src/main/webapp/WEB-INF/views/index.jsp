@@ -8,6 +8,7 @@
 <meta charset="ISO-8859-1">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" href="resources/download.png">
 <link rel="stylesheet" href="resources/main.css">
 <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="resources/jquery/jquery-ui.min.css">
@@ -73,9 +74,41 @@
 							<td></td>
 							<td><label style="color: red">${result }</label></td>
 						</tr>
+						<tr>
+							<td></td>
+							<td><label style="color: red"><a class="link"
+					href="#" id="forgot">Forgot Password ?</a></label></td>
+						</tr>
 					</table>
 					<button type="submit" style="background-color: grey"
 						id="loginsubmit" class="btn btn-primary btn-block" disabled>Login</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid justify-content-center">
+		<div class="rew justify-content-center" id="forgotPass" style="display: none">
+			<div class="col-12 col-sm-6 col-md-3">
+
+				<form class="form-container logfor" action="forgot" method="post">
+
+					<table>
+						<tr>
+							<td style="text-align: center" colspan="2"><h3>Forgot Password</h3></td>
+						</tr>
+						<tr>
+							<td><div class="form-group">
+									<label for="exampleInputEmail1">Email :</label></td>
+							<td><input type="text" class="form-control" id="emailforg"
+								name="email" aria-describedby="emailHelp"
+								placeholder="Enter email">
+								</div></td>
+						</tr>
+						
+					</table>
+					<button type="submit" style="background-color: grey"
+						id="forgotsubmit" class="btn btn-primary btn-block" disabled>Submit</button>
 				</form>
 			</div>
 		</div>
@@ -119,7 +152,7 @@
 									<label id="emailHelp" class="form-text text-muted">Phone
 										:</label></td>
 							<td><input type="text" class="form-control" name="phone"
-								id="phone" placeholder="Phone">
+								id="phone" placeholder="Phone" maxlength="10">
 								</div></td>
 						</tr>
 						<tr>

@@ -5,7 +5,6 @@ import java.util.List;
 import org.jspiders.mvc.login.model.PlaceDTO;
 import org.jspiders.mvc.login.services.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +32,7 @@ public class RestAPI {
 	@RequestMapping(value = "rest", method = RequestMethod.POST)
 	public @ResponseBody List<String> getCountry() {
 
-		System.out.println("Fetching All Rows");
+		System.out.println("Fetching All Countries");
 
 		return placeService.getCountry();
 	}
@@ -42,7 +41,8 @@ public class RestAPI {
 	@RequestMapping(value = "rest/{country}", method = RequestMethod.POST)
 	public @ResponseBody List<PlaceDTO> getState(@PathVariable(value = "country") String country) {
 
-		System.out.println("Fetching State of : " + country);
+		System.err.println("Fetching State of : " + country);
+		System.err.println("inside rest controller" + placeService.getState(country));
 		return placeService.getState(country);
 	}
 

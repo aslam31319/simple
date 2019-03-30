@@ -1,15 +1,15 @@
 package org.jspiders.mvc.login.repository.impl;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.jspiders.mvc.login.model.UserDTO;
 import org.jspiders.mvc.login.repository.inf.LoginDaoInf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository("normal")
+@Transactional
 public class LoginDaoImpl implements LoginDaoInf {
 
 	@Autowired
@@ -17,15 +17,7 @@ public class LoginDaoImpl implements LoginDaoInf {
 
 	public UserDTO login(String email) {
 		Session se = sf.openSession();
-		try {
-			return se.get(UserDTO.class, email);
-
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			se.close();
-		}
+		return se.get(UserDTO.class, email);
 	}
 
 }
