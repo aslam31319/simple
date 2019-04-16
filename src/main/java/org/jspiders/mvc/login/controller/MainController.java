@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jspiders.mvc.login.model.EmpDTO;
@@ -62,19 +61,32 @@ public class MainController {
 	// Home page response
 	@RequestMapping(value= {"/","logout","home","index"})
 	public String home() {
-		log.info("its logged");
+		log.info("Home controller is called");
 		return "index";
+	}
+	@RequestMapping(value= {"logp"})
+	public String loginp() {
+		log.info("its logged");
+		return "login";
+	}
+	@RequestMapping(value= {"regp"})
+	public String regp() {
+		log.info("its logged");
+		return "register";
 	}
 
 	// Registration response
 	@RequestMapping(value = "register", method = RequestMethod.POST)
 	public String register(@ModelAttribute UserDTO dto, Model model) {
 
+		
+		log.info("Register controller is called");
 		try {
 			regService.register(dto);
 			model.addAttribute("result", "Registration Successful");
 			return "index";
 		} catch (Exception e) {
+			log.warn("Trying to register with already existing id");
 			model.addAttribute("result", "User already exist.... Registration Faild");
 			return "index";
 		}
@@ -84,9 +96,11 @@ public class MainController {
 	// Login response
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
+		log.info("Login controller is called");
 		UserDTO validDto = logService.login(email, password);
 
 		if (validDto == null) {
+			log.warn("Trying to login using invalid credentials");
 			model.addAttribute("result", "Invalid username or password");
 			return "index";
 		} else if (validDto.getPassword().equals(password)) {
@@ -94,36 +108,37 @@ public class MainController {
 			model.addAttribute("email", email);
 			return "home";
 		} else {
+			log.warn("Trying to login using invalid credentials");
 			model.addAttribute("result", "Invalid username or password");
 			return "index";
 		}
 	}
 
 	// forgot password
-	@RequestMapping(value = "forgot", method = RequestMethod.POST)
-	public String forgotPassword(@RequestParam("email") String email, Model model) {
-		if (forgotPassService.forgotPass(email) == null) {
-			model.addAttribute("result", "No user found");
-			return "index";
-		} else {
-			String subject = "No Reply";
-			String body = "This is a System generated message Please do not try to reply for this mail. \n This message is contains confidential information like password please do not share it whith any one.\n Your Email id is: "
-					+ email + " \n\n Your Password is :" + forgotPassService.forgotPass(email);
-			// sentMail.sentMail(email, subject, body);
-			sentMailSpring.sentMail(email, subject, body);
-			model.addAttribute("result", "Please check your Email for details");
-			return "index";
+		@RequestMapping(value = "forgot", method = RequestMethod.POST)
+		public String forgotPassword(@RequestParam("recemail") String email, Model model) {
+			if (forgotPassService.forgotPass(email) == null) {
+				model.addAttribute("result", "No user found");
+				return "register";
+			} else {
+				String subject = "No Reply";
+				String body = "This is a System generated message Please do not try to reply for this mail. \n This message is contains confidential information like password please do not share it whith any one.\n Your Email id is: "
+						+ email + " \n\n Your Password is :" + forgotPassService.forgotPass(email);
+				// sentMail.sentMail(email, subject, body);
+				sentMailSpring.sentMail(email, subject, body);
+				model.addAttribute("result", "Please check your Email for details");
+				return "login";
+
+			}
 
 		}
-
-	}
 
 	// sent mail with attachment
 	@RequestMapping(value = "mailAttach", method = RequestMethod.POST)
 
 	public @ResponseBody String sentMailAtach(HttpServletRequest req, @RequestParam("fileEXT") String fileEXT,
 			@RequestParam("email") String email) {
-		System.out.println(email + fileEXT);
+		log.info("Emali with Attach to "+email);
 		String subject = "Attachment";
 		String body = "This is your attachment ";
 		sentMailAtach.sentMail(email, subject, body, req, fileEXT);
@@ -133,13 +148,14 @@ public class MainController {
 	// download file mapping
 	@RequestMapping(value = "download", method = RequestMethod.GET)
 	public void generate(HttpServletRequest req, HttpServletResponse resp, @RequestParam("fileEXT") String fileEXT) {
-		System.out.println(fileEXT);
+		log.info("Download for "+fileEXT);
 		downloadService.downloadFile(req, resp, fileEXT);
 
 	}
 
 	@RequestMapping(value = "getallemp", method = RequestMethod.POST)
 	public @ResponseBody List<EmpDTO> getAllEmp() {
+		log.info("Fetching all employee details");
 		return empService.getAllEmp();
 	}
 	

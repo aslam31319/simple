@@ -9,10 +9,11 @@ import org.jspiders.mvc.login.model.UserDTO;
 import org.jspiders.mvc.login.repository.inf.FetchAllUserInf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository("fetch")
-@Transactional
+@Transactional(isolation=Isolation.REPEATABLE_READ)
 public class FetchAllUserImpl implements FetchAllUserInf {
 	
 	@Autowired

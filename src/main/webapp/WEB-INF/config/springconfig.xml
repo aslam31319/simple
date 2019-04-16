@@ -25,6 +25,9 @@
 		<property name="url" value="${database.url}" />
 		<property name="username" value="${database.root}" />
 		<property name="password" value="${database.password}" />
+		<property name="maxActive" value="2000" />
+		<!-- <property name="minIdle" value="2" / -->
+		
 	</bean>
 	
 	<!-- <bean id="multipartResolver"   

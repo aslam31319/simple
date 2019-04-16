@@ -9,8 +9,11 @@ import org.jspiders.mvc.login.model.EmpDTO;
 import org.jspiders.mvc.login.repository.inf.EmpDaoInf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Transactional(isolation=Isolation.REPEATABLE_READ)
 public class EmpDaoImpl implements EmpDaoInf {
 
 	@Autowired

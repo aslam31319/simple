@@ -1,75 +1,60 @@
 @charset "ISO-8859-1";
+@import url(https://fonts.googleapis.com/css?family=Khula:700);
 
-.bg {
-	background: url("../resources/bac1.JPG") no-repeat;
-	width: 100%;
-	height: 100vh;
-	background-size: 100%;
-}
-.navbar-default .navbar-nav > li.dropdown:hover > a, 
-.navbar-default .navbar-nav > li.dropdown:hover > a:hover,
-.navbar-default .navbar-nav > li.dropdown:hover > a:focus {
-    background-color: rgb(231, 231, 231);
-    color: rgb(85, 85, 85);
-}
+body{
+	text-align: center;
 
-li.dropdown:hover > .dropdown-menu {
-    display: block;
-}
+	height: 100%;
+    margin: 0;
+	background-repeat: no-repeat;
+	background-image: linear-gradient(to bottom right, #ed562d ,#ff8949) ;
+	background-attachment: fixed;
 
-.dob-control {
-	width: 80%;
-	padding: 6px 10px;
-	margin: 6px 0;
-	height: 30px;
-	display: inline-block;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
 }
-
-.logfor {
-	top: 1vh;
-	background-color: #fff;
-	padding: 20px;
-	width: 50vh;
-	left: 150%;
-	position: relative;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px 0px;
+.nav-link{
+	color: white !important;
+	font-weight: bold
 }
-
-.ui-datepicker-trigger {
-	height: 20px;
-}
-
-.regfor {
-	top: 1vh;
-	background-color: #fff;
-	padding: 5px;
-	width: 50vh;
-	left: 150%;
-	position: relative;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px 0px;
-	width: 60vh;
-	padding: 20px;
-	left: 50%%;
-}
-
-.res {
-	position: relative;
-	top: 50%;
-	color: black;
-	font-weight: bold;
-}
-
-.rew {
+.nav-link:hover{
 	
+	color:black !important;
 }
 
-@media only screen and (max-width:678px) {
-	.bg {
-		background-size: 300%;
+
+
+
+
+
+.hidden {
+  opacity:0;
+}
+.console-container {
+ 
+  font-family:Khula;
+  font-size:4em;
+  text-align:center;
+  height:200px;
+  width:600px;
+  display:block;
+  position:absolute;
+  color:white ;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+	margin:auto;
+	transition: 1s font-size;
+}
+.console-underscore {
+   display:inline-block;
+  position:relative;
+  top:-0.14em;
+  left:10px;
+}
+@media screen and (max-width:800px){
+	.console-container {
+		font-size:2em;
+		height:100px;
+  width:300px;
 	}
 }
