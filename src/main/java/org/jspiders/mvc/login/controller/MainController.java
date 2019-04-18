@@ -84,7 +84,7 @@ public class MainController {
 		try {
 			regService.register(dto);
 			model.addAttribute("result", "Registration Successful");
-			return "index";
+			return "login";
 		} catch (Exception e) {
 			log.warn("Trying to register with already existing id");
 			model.addAttribute("result", "User already exist.... Registration Faild");

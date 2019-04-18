@@ -64,7 +64,7 @@
                     height: 38px;">
                         <span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
                     </div>
-                    <input type="text" name="dob" class="form-control input_user" id="DOB" value="" readonly placeholder="Date of birth">
+                    <input type="text" name="DOB" class="form-control input_user" id="DOB" readonly placeholder="Date of birth">
                     
                     <div class="form-group btn-group btn-group-toggle" style="padding: 5px;margin-bottom: 0px;"
         data-toggle="buttons">
@@ -107,7 +107,7 @@
 </form>    
 </div>
 <div class="d-flex justify-content-center mt-3 login_container">
-    <button type="button" name="btnreg"id="btnreg" class="btn login_btn " form="regform" disabled>Sign Up</button>
+    <button type="submit" name="btnreg" id="btnreg" class="btn login_btn " form="regform" disabled>Sign Up</button>
 </div>
 
 <div class="mt-4">
