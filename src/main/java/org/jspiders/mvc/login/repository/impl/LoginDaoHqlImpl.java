@@ -22,7 +22,7 @@ public class LoginDaoHqlImpl implements LoginDaoInf {
 	public UserDTO login(String email, String password) {
 
 		System.out.println("hql");
-		Session se = sf.openSession();
+		Session se = sf.getCurrentSession();
 		Query<UserDTO> qry = se.createQuery("From UserDTO dto where dto.email = :email and dto.password=:password");
 		qry.setParameter("email", email);
 		qry.setParameter("password", password);
@@ -35,7 +35,7 @@ public class LoginDaoHqlImpl implements LoginDaoInf {
 	@Override
 	public UserDTO login(String email) {
 		System.out.println("hql");
-		Session se = sf.openSession();
+		Session se = sf.getCurrentSession();
 		Query<UserDTO> qry = se.createQuery("From UserDTO dto where dto.email = :email");
 		qry.setParameter("email", email);
 		

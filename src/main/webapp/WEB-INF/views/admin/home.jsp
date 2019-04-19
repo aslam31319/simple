@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="resources/jquery/jquery-ui.min.css">
 <link rel="stylesheet" href="resources/main.css">
-<title>Title of the document</title>
+<title>Admin page</title>
 </head>
 
 <body>
@@ -34,8 +34,9 @@
 			</ul>
 			<ul class="navbar-nav ml-auto">
 
-				<li class="nav-item " ><a class="nav-link" href="login" id="login">Login </a></li>
-				<li class="nav-item " ><a class="nav-link" href="regp" id="register">Register</a></li>
+				<li class="nav-item " ><a class="nav-link" href="admin/addUser" id="login">Add admin User </a></li>
+				<li class="nav-item " ><a class="nav-link" href="admin/removeUser" id="register">Remove User</a></li>
+				<li class="nav-item " ><a class="nav-link" href="logout" id="register">Logout</a></li>
 
 			</ul>
 
@@ -50,10 +51,7 @@
             
         
 
-    <div class='console-container'>
-        <span id='text'></span>
-        <div class='console-underscore' id='console'>&#95;</div>
-    </div>
+    <h2>${result }</h2>
 
 
     

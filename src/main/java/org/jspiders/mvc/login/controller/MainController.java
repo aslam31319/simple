@@ -12,12 +12,9 @@ import org.jspiders.mvc.login.model.UserDTO;
 import org.jspiders.mvc.login.services.DownloadService;
 import org.jspiders.mvc.login.services.EmpService;
 import org.jspiders.mvc.login.services.ForgotPasswordService;
-import org.jspiders.mvc.login.services.LoginService;
 import org.jspiders.mvc.login.services.RegisterService;
-import org.jspiders.mvc.login.services.mail.inf.SentMailInf;
 import org.jspiders.mvc.login.services.mail.inf.SentMailWithAttachInf;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,25 +26,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MainController {
 
-	private static Logger log =LogManager.getLogger(MainController.class);
-	
-	@Autowired
-	private LoginService logService;
+	private static Logger log = LogManager.getLogger(MainController.class);
 
 	@Autowired
 	private RegisterService regService;
 
 	@Autowired
 	private ForgotPasswordService forgotPassService;
-
-	/*
-	 * @Autowired
-	 * 
-	 * @Qualifier("javaMail") private SentMailInf sentMail;
-	 */
-	@Autowired
-	@Qualifier("springMail")
-	private SentMailInf sentMailSpring;
 
 	@Autowired
 	private DownloadService downloadService;
@@ -59,28 +44,31 @@ public class MainController {
 	private SentMailWithAttachInf sentMailAtach;
 
 	// Home page response
-	@RequestMapping(value= {"/","home","index"})
+	@RequestMapping(value = { "/", "home", "index" })
 	public String home() {
 		log.info("Home controller is called");
 		return "index";
 	}
-	@RequestMapping(value= {"login"})
-	public String login(@RequestParam String error,Model model ) {
+
+	@RequestMapping(value = { "login" })
+	public String login(@RequestParam(name = "error", defaultValue = "false") String error, Model model) {
 		log.info("Requested for login page");
-		if(error.equals("true")) {
+		if (error.equals("true")) {
 			model.addAttribute("result", "Invalid email or password");
 			return "login";
 		}
-		
+
 		return "login";
 	}
-	@RequestMapping(value= {"regp"})
+
+	@RequestMapping(value = { "regp" })
 	public String regp() {
 		log.info("its logged");
 		return "register";
 	}
-	@RequestMapping(value= {"welcome"})
-	public String home1() {
+
+	@RequestMapping(value = { "welcome" })
+	public String welcome() {
 		log.info("its logged");
 		return "home";
 	}
@@ -89,7 +77,6 @@ public class MainController {
 	@RequestMapping(value = "register", method = RequestMethod.POST)
 	public String register(@ModelAttribute UserDTO dto, Model model) {
 
-		
 		log.info("Register controller is called");
 		try {
 			regService.register(dto);
@@ -102,8 +89,80 @@ public class MainController {
 		}
 
 	}
+
+	// forgot password
+	@RequestMapping(value = "forgot", method = RequestMethod.POST)
+	public String forgotPassword(@RequestParam("recemail") String email, Model model) {
+
+		if (!forgotPassService.forgotPass(email)) {
+			model.addAttribute("result", "No user found");
+			return "register";
+		} else {
+
+			model.addAttribute("result", "Please check your Email for details");
+			return "login";
+
+		}
+		
+
+	}
+
+	// sent mail with attachment
+	@RequestMapping(value = "mailAttach", method = RequestMethod.POST)
+
+	public @ResponseBody String sentMailAtach(HttpServletRequest req, @RequestParam("fileEXT") String fileEXT,
+			@RequestParam("email") String email) {
+		log.info("Emali with Attach to " + email);
+		String subject = "Attachment";
+		String body = "This is your attachment ";
+		sentMailAtach.sentMail(email, subject, body, req, fileEXT);
+		return "mailsent";
+	}
+
+	// download file mapping
+	@RequestMapping(value = "download", method = RequestMethod.GET)
+	public void generate(HttpServletRequest req, HttpServletResponse resp, @RequestParam("fileEXT") String fileEXT) {
+		log.info("Download for " + fileEXT);
+		downloadService.downloadFile(req, resp, fileEXT);
+
+	}
+
+	@RequestMapping(value = "getallemp", method = RequestMethod.POST)
+	public @ResponseBody List<EmpDTO> getAllEmp() {
+		log.info("Fetching all employee details");
+		return empService.getAllEmp();
+	}
+
+	// @Autowired
+	// @Qualifier("springMail")
+	// private SentMailInf sentMailSpring;
+
+	// @Autowired
+	// private LoginService logService;
+
 	/*
-	 * This m,etode is not needed any more since i am using Spring Security 
+	 * @Autowired
+	 * 
+	 * @Qualifier("javaMail") private SentMailInf sentMail;
+	 */
+
+	
+	/*
+	 * if (forgotPassService.forgotPass(email) == null) {
+	 * model.addAttribute("result", "No user found"); return "register"; } else {
+	 * String subject = "No Reply"; String body =
+	 * "This is a System generated message Please do not try to reply for this mail. \n This message is contains confidential information like password please do not share it whith any one.\n Your Email id is: "
+	 * + email + " \n\n Your Password is :" + forgotPassService.forgotPass(email);
+	 * // sentMail.sentMail(email, subject, body); sentMailSpring.sentMail(email,
+	 * subject, body); model.addAttribute("result",
+	 * "Please check your Email for details"); return "login";
+	 * 
+	 * }
+	 */
+	
+	
+	/*
+	 * This method is not needed any more since i am using Spring Security
 	 * 
 	 * 
 	 * 
@@ -125,51 +184,6 @@ public class MainController {
 	 * } }
 	 */
 
-	// forgot password
-		@RequestMapping(value = "forgot", method = RequestMethod.POST)
-		public String forgotPassword(@RequestParam("recemail") String email, Model model) {
-			if (forgotPassService.forgotPass(email) == null) {
-				model.addAttribute("result", "No user found");
-				return "register";
-			} else {
-				String subject = "No Reply";
-				String body = "This is a System generated message Please do not try to reply for this mail. \n This message is contains confidential information like password please do not share it whith any one.\n Your Email id is: "
-						+ email + " \n\n Your Password is :" + forgotPassService.forgotPass(email);
-				// sentMail.sentMail(email, subject, body);
-				sentMailSpring.sentMail(email, subject, body);
-				model.addAttribute("result", "Please check your Email for details");
-				return "login";
-
-			}
-
-		}
-
-	// sent mail with attachment
-	@RequestMapping(value = "mailAttach", method = RequestMethod.POST)
-
-	public @ResponseBody String sentMailAtach(HttpServletRequest req, @RequestParam("fileEXT") String fileEXT,
-			@RequestParam("email") String email) {
-		log.info("Emali with Attach to "+email);
-		String subject = "Attachment";
-		String body = "This is your attachment ";
-		sentMailAtach.sentMail(email, subject, body, req, fileEXT);
-		return "mailsent";
-	}
-
-	// download file mapping
-	@RequestMapping(value = "download", method = RequestMethod.GET)
-	public void generate(HttpServletRequest req, HttpServletResponse resp, @RequestParam("fileEXT") String fileEXT) {
-		log.info("Download for "+fileEXT);
-		downloadService.downloadFile(req, resp, fileEXT);
-
-	}
-
-	@RequestMapping(value = "getallemp", method = RequestMethod.POST)
-	public @ResponseBody List<EmpDTO> getAllEmp() {
-		log.info("Fetching all employee details");
-		return empService.getAllEmp();
-	}
-	
 	/*
 	 * @RequestMapping(value="uploadFile",method=RequestMethod.POST) public void
 	 * upload(@RequestParam("file")MultipartFile file) {
