@@ -64,9 +64,14 @@ public class MainController {
 		log.info("Home controller is called");
 		return "index";
 	}
-	@RequestMapping(value= {"logp"})
-	public String loginp() {
-		log.info("its logged");
+	@RequestMapping(value= {"login"})
+	public String login(@RequestParam String error,Model model ) {
+		log.info("Requested for login page");
+		if(error.equals("true")) {
+			model.addAttribute("result", "Invalid email or password");
+			return "login";
+		}
+		
 		return "login";
 	}
 	@RequestMapping(value= {"regp"})
@@ -97,27 +102,28 @@ public class MainController {
 		}
 
 	}
-
-	// Login response
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-		log.info("Login controller is called");
-		UserDTO validDto = logService.login(email, password);
-
-		if (validDto == null) {
-			log.warn("Trying to login using invalid credentials");
-			model.addAttribute("result", "Invalid username or password");
-			return "index";
-		} else if (validDto.getPassword().equals(password)) {
-			model.addAttribute("result", "Welcome " + validDto.getFirstName() + " " + validDto.getLastName());
-			model.addAttribute("email", email);
-			return "home";
-		} else {
-			log.warn("Trying to login using invalid credentials");
-			model.addAttribute("result", "Invalid username or password");
-			return "index";
-		}
-	}
+	/*
+	 * This m,etode is not needed any more since i am using Spring Security 
+	 * 
+	 * 
+	 * 
+	 * // Login response
+	 * 
+	 * @RequestMapping(value = "login", method = RequestMethod.POST) public String
+	 * login(@RequestParam("email") String email, @RequestParam("password") String
+	 * password, Model model) { log.info("Login controller is called"); UserDTO
+	 * validDto = logService.login(email, password);
+	 * 
+	 * if (validDto == null) {
+	 * log.warn("Trying to login using invalid credentials");
+	 * model.addAttribute("result", "Invalid username or password"); return "index";
+	 * } else if (validDto.getPassword().equals(password)) {
+	 * model.addAttribute("result", "Welcome " + validDto.getFirstName() + " " +
+	 * validDto.getLastName()); model.addAttribute("email", email); return "home"; }
+	 * else { log.warn("Trying to login using invalid credentials");
+	 * model.addAttribute("result", "Invalid username or password"); return "index";
+	 * } }
+	 */
 
 	// forgot password
 		@RequestMapping(value = "forgot", method = RequestMethod.POST)

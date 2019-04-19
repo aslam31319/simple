@@ -1,0 +1,5 @@
+This is a information about hibernate.cfg.xml
+
+
+
+no need of this file since using Datasource and all hibernate configuration is done in springconf.xml 

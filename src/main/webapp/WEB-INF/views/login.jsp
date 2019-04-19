@@ -55,8 +55,7 @@
 <div class="mt-4">
     
     <div class="d-flex justify-content-center links">
-        <label style="color: red">${error}</label>
-        <label style="color: red">${result }</label>
+        <label style="color: red">${result}</label>
     </div>
     <div class="d-flex justify-content-center links">
         Don't have an account? <a href="regp" class="ml-2">Sign Up</a>

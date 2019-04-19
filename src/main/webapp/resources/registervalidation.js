@@ -340,8 +340,8 @@ $(document).ready(
 			});
 			// Adding Country Using ajax call
 			$.ajax({
-				url : "rest",
-				type : "POST",
+				url : "rest/",
+				type : "GET",
 				success : function(data) {
 					$.each(data, function(index, value1) {
 						$('#country').append($('<option>', {
@@ -364,19 +364,19 @@ $(document).ready(
 
 								$('#state').empty().append($('<option>', {
 									value : 'Nil',
-									text : 'Choose your state'
+									text : '--State--'
 								}));
 								$("#state").removeAttr("disabled");
 								
 								$('#city').empty().append($('<option>', {
 									value : 'Nil',
-									text : 'Choose your city'
+									text : '--City--'
 								}));
 								$("#city").attr("disabled", "disabled");
 								var ur = "rest/" + $("#country").val();
 								$.ajax({
 									url : ur,
-									type : "POST",
+									type : "GET",
 									success : function(data) {
 										$.each(data, function(index, value1) {
 											$('#state').append($('<option>', {
@@ -415,14 +415,14 @@ $(document).ready(
 
 								$('#city').empty().append($('<option>', {
 									value : 'Nil',
-									text : 'Choose your city'
+									text : '--City--'
 								}));
 								$("#city").removeAttr("disabled");
 
 								$.ajax({
 									url : "rest/" + $("#country").val() + "/"
 											+ $("#state").val(),
-									type : "POST",
+									type : "GET",
 									success : function(data) {
 										$.each(data, function(index, value1) {
 											$('#city').append($('<option>', {

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class RegisterService {
 	@Autowired
 	private RegisterDaoInf regDao;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passEncoder;
 
@@ -18,7 +18,6 @@ public class RegisterService {
 		dto.setPassword(passEncoder.encode(dto.getPassword()));
 		dto.setRole("ROLE_USER");
 		regDao.save(dto);
-		
-		
+
 	}
 }

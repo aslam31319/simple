@@ -338,7 +338,7 @@ $(document).ready(
 			});
 			// Adding Country Using ajax call
 			$.ajax({
-				url : "rest",
+				url : "rest/",
 				type : "POST",
 				success : function(data) {
 					$.each(data, function(index, value1) {

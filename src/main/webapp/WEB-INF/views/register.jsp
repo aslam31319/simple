@@ -83,13 +83,13 @@
                     <div class="input-group-append">
                         <span class="input-group-text"><i class="fas fa-globe"></i></span>
                     </div>
-                    <select id="country" name="country" class="form-control input_user" value="" ><option value="Nill">Country</option>
+                    <select id="country" name="country" class="form-control input_user" value="" ><option value="Nill">--Country--</option>
 
                     </select>
                     <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-flag"></i></span>
                         </div>
-                        <select id="state" name="state" class="form-control input_user" value="" ><option value="Nill">State</option>
+                        <select id="state" name="state" class="form-control input_user" value=""  disabled="disabled"><option value="Nill">--State--</option>
 
                         </select>
                 </div>
@@ -98,7 +98,7 @@
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                         </div>
-                        <select id="city" name="city" class="form-control input_pass" value="" ><option value="Nill">City</option>
+                        <select id="city" name="city" class="form-control input_pass" value="" disabled="disabled"><option value="Nill">--City--</option>
 
                         </select>
                     </div>       
