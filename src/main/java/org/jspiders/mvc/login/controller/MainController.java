@@ -59,7 +59,7 @@ public class MainController {
 	private SentMailWithAttachInf sentMailAtach;
 
 	// Home page response
-	@RequestMapping(value= {"/","logout","home","index"})
+	@RequestMapping(value= {"/","home","index"})
 	public String home() {
 		log.info("Home controller is called");
 		return "index";
@@ -73,6 +73,11 @@ public class MainController {
 	public String regp() {
 		log.info("its logged");
 		return "register";
+	}
+	@RequestMapping(value= {"welcome"})
+	public String home1() {
+		log.info("its logged");
+		return "home";
 	}
 
 	// Registration response

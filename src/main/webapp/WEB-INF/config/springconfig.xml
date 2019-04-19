@@ -69,30 +69,19 @@ class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	<bean id="persistenceExceptionTranslationPostProcessor"
         class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 	<bean id="bcrptPassEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>         
-
+	<bean id="userDetailsServiceImpl" class="org.jspiders.mvc.login.services.UserDetailServiceImpl"/>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property value="/WEB-INF/views/" name="prefix" />
 		<property value=".jsp" name="suffix" />
 	</bean>
 	
+	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 	<mvc:annotation-driven />
 
+
+
 </beans>
 
-<!-- <list>
-            <value>
-                hibernate.hbm2ddl.auto=${hibernate.hbm2ddl.auto}
-            </value>
-            <value>
-                hibernate.show_sql=${hibernate.show_sql}
-            </value>
-           </list> -->
-           
-           <!-- <props>
-				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-			    <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-			   
-			</props> -->

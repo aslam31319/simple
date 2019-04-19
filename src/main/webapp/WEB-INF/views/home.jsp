@@ -59,7 +59,11 @@
                                 <li class="nav-link"><input type="button"
                                 class="btn btn-outline-light btn-sm" id="SwitchD" value="Show Table"/></li>
                             <li class="nav-link"><a href="logout"
-                                class="btn btn-outline-light btn-sm">Logout</a></li>
+                                class="btn btn-outline-light btn-sm">Logout</a>
+                                <form id="logoutForm" method="POST" action="logout">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+                                </li>
                         </ul>
             
                     </div>

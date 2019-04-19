@@ -31,5 +31,16 @@ public class LoginDaoHqlImpl implements LoginDaoInf {
 			return dto;
 
 	}
+	
+	@Override
+	public UserDTO login(String email) {
+		System.out.println("hql");
+		Session se = sf.openSession();
+		Query<UserDTO> qry = se.createQuery("From UserDTO dto where dto.email = :email");
+		qry.setParameter("email", email);
+		
+			UserDTO dto=qry.uniqueResult();
+			return dto;
+	}
 
 }

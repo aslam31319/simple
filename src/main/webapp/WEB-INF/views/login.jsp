@@ -27,12 +27,13 @@
     </div>
 </div>
 <div class="d-flex justify-content-center form_container">
-    <form action="login" method="POST" id="logform">
+    <form action="j_spring_security_check" method="POST" id="logform">
         <div class="input-group mb-3">
             <div class="input-group-append">
                 <span class="input-group-text"><i class="fas fa-at"></i></span>
             </div>
             <input type="text" name="email" id="email" class="form-control input_user" value="" placeholder="Email id">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </div>
         <div class="input-group mb-2">
             <div class="input-group-append">
@@ -54,6 +55,7 @@
 <div class="mt-4">
     
     <div class="d-flex justify-content-center links">
+        <label style="color: red">${error}</label>
         <label style="color: red">${result }</label>
     </div>
     <div class="d-flex justify-content-center links">

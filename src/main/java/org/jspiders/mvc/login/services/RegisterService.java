@@ -16,6 +16,7 @@ public class RegisterService {
 
 	public void register(UserDTO dto) {
 		dto.setPassword(passEncoder.encode(dto.getPassword()));
+		dto.setRole("ROLE_USER");
 		regDao.save(dto);
 		
 		

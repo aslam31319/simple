@@ -50,7 +50,13 @@ public class UserDTO implements Serializable {
 
 	@Column(name = "gender")
 	private String gender;
-
+	
+	
+	//this is not a good way to add role in same table 
+	//but iam just trying to add Spring Security soo......
+	@Column(name = "role")
+	private String role;
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -137,6 +143,14 @@ public class UserDTO implements Serializable {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Override
