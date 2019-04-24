@@ -14,6 +14,8 @@
 
 		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/welcome" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<intercept-url pattern="/chpwdform" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<intercept-url pattern="/changePassword" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
 		<intercept-url pattern="/download" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/mailattach" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/rest**" access="permitAll" />

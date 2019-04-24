@@ -11,10 +11,11 @@ import org.jspiders.mvc.login.model.EmpDTO;
 import org.jspiders.mvc.login.model.UserDTO;
 import org.jspiders.mvc.login.services.DownloadService;
 import org.jspiders.mvc.login.services.EmpService;
-import org.jspiders.mvc.login.services.ForgotPasswordService;
+import org.jspiders.mvc.login.services.PasswordService;
 import org.jspiders.mvc.login.services.RegisterService;
 import org.jspiders.mvc.login.services.mail.inf.SentMailWithAttachInf;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,7 +33,7 @@ public class MainController {
 	private RegisterService regService;
 
 	@Autowired
-	private ForgotPasswordService forgotPassService;
+	private PasswordService passwordService;
 
 	@Autowired
 	private DownloadService downloadService;
@@ -48,6 +49,12 @@ public class MainController {
 	public String home() {
 		log.info("Home controller is called");
 		return "index";
+	}
+
+	@RequestMapping("chpwdform")
+	public String chpwd() {
+		log.info("Change password form is called");
+		return "changePassword";
 	}
 
 	@RequestMapping(value = { "login" })
@@ -94,16 +101,40 @@ public class MainController {
 	@RequestMapping(value = "forgot", method = RequestMethod.POST)
 	public String forgotPassword(@RequestParam("recemail") String email, Model model) {
 
-		if (!forgotPassService.forgotPass(email)) {
-			model.addAttribute("result", "No user found");
-			return "register";
-		} else {
-
+		if (passwordService.forgotPass(email)) {
 			model.addAttribute("result", "Please check your Email for details");
 			return "login";
+		} else {
 
+			model.addAttribute("result", "No user found");
+			return "register";
 		}
+
+	}
+
+	// change password
+	@RequestMapping(value = "changePassword", method = RequestMethod.POST)
+	public String changePassword(@RequestParam("email") String email,
+			@RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword,
+			Model model) {
+
+		String logedInEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 		
+		System.out.println(logedInEmail);
+		if (logedInEmail.equals(email)) {
+			if (passwordService.changePassword(email, currentPassword, newPassword)) {
+				model.addAttribute("result", "Password changed please login again");
+				return "login";
+			} else {
+
+				model.addAttribute("result", "Invalid username or password");
+				return "login";
+
+			}
+		} else {
+			model.addAttribute("result", "Invalid username or password");
+			return "login";
+		}
 
 	}
 
@@ -146,7 +177,6 @@ public class MainController {
 	 * @Qualifier("javaMail") private SentMailInf sentMail;
 	 */
 
-	
 	/*
 	 * if (forgotPassService.forgotPass(email) == null) {
 	 * model.addAttribute("result", "No user found"); return "register"; } else {
@@ -159,8 +189,7 @@ public class MainController {
 	 * 
 	 * }
 	 */
-	
-	
+
 	/*
 	 * This method is not needed any more since i am using Spring Security
 	 * 

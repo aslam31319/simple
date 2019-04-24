@@ -64,7 +64,7 @@
 					<li class="nav-link"><input type="button"
 						class="btn btn-outline-light btn-sm" id="SwitchD"
 						value="Show Table" /></li>
-						<li class="nav-link"><a href="changepassword"
+						<li class="nav-link"><a href="chpwdform"
 						class="btn btn-outline-light btn-sm">Change password</a>
 					<li class="nav-link"><a href="logout"
 						class="btn btn-outline-light btn-sm">Logout</a>
